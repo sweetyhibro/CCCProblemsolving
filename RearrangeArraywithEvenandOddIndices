@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void rearrange_array(int* arr, int size) {
+    int* result = (int*)malloc(size * sizeof(int));
+    if (result == NULL) {
+        printf("Memory allocation failed.\n");
+        return;
+    }
+    for (int i = 0; i < size; i++) {
+        result[i] = -1;
+    }
+    int even_index = 0;
+    int odd_index = 1;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 == 0) {
+            if (even_index < size) {
+                result[even_index] = arr[i];
+                even_index += 2;
+            }
+        } else {
+            if (odd_index < size) {
+                result[odd_index] = arr[i];
+                odd_index += 2;
+            }
+        }
+    }
+    for (int i = 0; i < size; i++) {
+        if (result[i] == -1) {
+            printf("Rearrangement not possible with the given input.\n");
+            free(result);
+            return;
+        }
+    }
+    printf("Rearranged array with even elements at even indices and odd elements at odd indices: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+    free(result);
+}
+
+int main() {
+    int x;
+    printf("Enter the size of the array: ");
+    scanf("%d", &x);
+    int* arr = (int*)malloc(x * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+    printf("Enter the elements of the array:\n");
+    for (int i = 0; i < x; i++) {
+        printf("Enter element %d: ", i + 1);
+        scanf("%d", &arr[i]);
+    }
+    rearrange_array(arr, x);
+    free(arr);
+    return 0;
+}

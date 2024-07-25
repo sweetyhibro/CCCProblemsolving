@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int cmp(const void *a, const void *b) {
+    return (*(int *)b - *(int *)a);
+}
+
+void greedy(int coins[], int n, int amount) {
+    int i = 0, number, count = 0;
+    qsort(coins, n, sizeof(coins[0]), cmp);
+    for (i = 0; i < n && amount > 0; i++) {
+        if (coins[i] <= amount) {
+            number = amount / coins[i];
+            amount -= number * coins[i];
+            count += number;
+        }
+    }
+    if (amount > 0) {
+        printf("-1\n");
+    } else {
+        printf("Total denominations: %d\n", count);
+    }
+}
+
+int main() {
+    int n, amount;
+    printf("Enter the number of coin denominations: ");
+    scanf("%d", &n);
+    int coins[n];
+    printf("Enter the coin denominations: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &coins[i]);
+    }
+    printf("Enter the amount: ");
+    scanf("%d", &amount);
+    greedy(coins, n, amount);
+    return 0;
+}

@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+struct activities {
+    int start, end;
+};
+
+void select(struct activities list[], int n) {
+    int i = 0, j;
+    printf("Selection: Job %d\n", i + 1);
+    
+    for (j = 1; j < n; j++) {
+        if (list[j].start >= list[i].end) {
+            printf("Job %d\n", j + 1);
+            i = j;
+        }
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter the number of activities: ");
+    scanf("%d", &n);
+    
+    struct activities list[n];
+    printf("Enter the start and end times of each activity:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Activity %d:\n", i + 1);
+        printf("Start time: ");
+        scanf("%d", &list[i].start);
+        printf("End time: ");
+        scanf("%d", &list[i].end);
+    }
+    
+    select(list, n);
+    
+    return 0;
+}

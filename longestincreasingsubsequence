@@ -1,0 +1,25 @@
+#include <stdio.h>
+int main() {
+    int i, j, n;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+    int A[n], dp[n];
+    printf("Enter the elements of the array: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &A[i]);
+    }
+    int mx = 1;
+    for (i = 0; i < n; i++) {
+        dp[i] = 1;
+        for (j = 0; j < i; j++) {
+            if (A[j] < A[i] && dp[j] + 1 > dp[i]) {
+                dp[i] = dp[j] + 1;
+            }
+        }
+        if (dp[i] > mx) {
+            mx = dp[i];
+        }
+    }
+    printf("Length of the longest increasing subsequence is: %d\n", mx);
+    return 0;
+}
